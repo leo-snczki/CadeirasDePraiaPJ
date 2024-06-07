@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,27 +9,30 @@ namespace CadeirasDePraiaPJ
 {
     class Program
     {
-        struct Cadeira
+        struct Cadeira // Struct com informações em comuns que podem ser reutilizadas.
         {
-            public int id;
-            public int preço;
-            public bool ocupado;
+            public int Id; // Identificação única da cadeira.
+            public double Preço; // Preço da cadeira.
+            public bool Ocupado; // Indica se a cadeira está ocupada ou não.
         }
-        static string input;
-        static int op;
-        static Cadeira[] praia = new Cadeira[5];
-        static DateTime[] horas = new DateTime[5];
-        static int[,] totalmarcado = new int[5, 2] { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 }}; // Matriz que conta o total de horas que uma cadeira foi reservado.
+
+        static string input; // Variável para armazenar algum  texto selecionado pelo utilizador,
+        static int op; // Variável para armazenar algum número inteiro selecionado pelo utilizador.
+        static Cadeira[] cadeiradepraia = new Cadeira[5]; // Array de cadeiras com capacidade para 5 cadeiras.
+        static DateTime[] horas = new DateTime[5]; // Array para armazenar as horas reservadas para cada cadeira.
+        static int[,] totalmarcado = new int[5, 2] { { 1, 0 }, { 2, 0 }, { 3, 0 }, { 4, 0 }, { 5, 0 } }; // Matriz que armazena o total de horas que uma cadeira foi reservado.
 
         static void Main(string[] args)
         {
-            praia[0] = new Cadeira { id = 1 , preço = 100 , ocupado = false };
-            praia[1] = new Cadeira { id = 2 , preço = 100 , ocupado = false };
-            praia[2] = new Cadeira { id = 3 , preço = 100 , ocupado = false };
-            praia[3] = new Cadeira { id = 4 , preço = 100 , ocupado = false };
-            praia[4] = new Cadeira { id = 5 , preço = 100 , ocupado = false };
+            // Inicialização de algumas cadeiras com valores padrões.
 
-            EscolherOpção();
+            cadeiradepraia[0] = new Cadeira { Id = 1, Preço = 100, Ocupado = false };
+            cadeiradepraia[1] = new Cadeira { Id = 2, Preço = 100, Ocupado = false };
+            cadeiradepraia[2] = new Cadeira { Id = 3, Preço = 100, Ocupado = false };
+            cadeiradepraia[3] = new Cadeira { Id = 4, Preço = 100, Ocupado = false };
+            cadeiradepraia[4] = new Cadeira { Id = 5, Preço = 100, Ocupado = false };
+
+            EscolherOpção(); // Chama o método para começar a interação com o utilizador.
 
         }
         static void MostrarMenu() // Método para demonstrar as opções que podem ser selecionadas.
@@ -46,223 +50,330 @@ namespace CadeirasDePraiaPJ
 
         }
         static void EscolherOpção()
-        {          
+        {
+            // Método para permitir que o utilizador escolha uma opção do menu.
             do
             {
-                MostrarMenu();
+                MostrarMenu(); // Exibe o menu
                 Console.Write("Escolha a opção desejada: ");
-                input = Console.ReadLine();
-                switch (input)
+                input = Console.ReadLine(); // Lê a entrada de string do utilizador.
+                switch (input) // com base na opção escolhida será executada tal ação.
                 {
                     case "1":
                         Console.Clear();
-                        MostrarCadeiras();
+                        MostrarCadeira(); // Chama o método para mostrar todas as cadeiras.
                         Console.Write("Pressione qualquer tecla para voltar ao menu: ");
-                        Console.ReadKey();
-                        Console.Clear();
+                        Console.ReadKey(); // Aguarda algum input do utilizador para proseguir.
+                        Console.Clear(); // Limpa o console.
                         break;
                     case "2":
-                        Console.Clear();
-                        OcuparCadeira();
+                        Console.Clear(); // Limpa o console.
+                        OcuparCadeira(); // Chama o método para ocupar uma cadeira.
                         Console.Clear();
                         break;
                     case "3":
-                        Console.Clear();
-                        DesocuparCadeira();
-                        Console.Clear();
+                        Console.Clear(); // Limpa o console.
+                        DesocuparCadeira(); // Chama o método para desocupar uma cadeira.
+                        Console.Clear(); // Limpa o console.
+                        break;
+                    case "4":
+                        Console.Clear(); // Limpa o console.
+                        EditarCadeira(); // Chama o método para editar uma cadeira.
+                        Console.Clear(); // Limpa o console.
                         break;
                     case "5":
-                        Console.Clear();
-                        NovaCadeira();
-                        Console.Clear();
+                        Console.Clear(); // Limpa o console.
+                        NovaCadeira(); // Chama o método para adicionar uma nova cadeira.
+                        Console.Clear(); // Limpa o console.
                         break;
                     case "6":
-                        Console.Clear();
-                        DeletarCadeira();
-                        Console.Clear();
+                        Console.Clear(); // Limpa o console.
+                        DeletarCadeira(); // Chama o método para remover uma cadeira.
+                        Console.Clear(); // Limpa o console.
                         break;
                     case "7":
-                        Console.Clear();
-                        MostrarHorasMarcadas();
-                        Console.Clear();
+                        Console.Clear(); // Limpa o console.
+                        MostrarHorasMarcadas(); // Chama o método para mostrar o total de horas marcadas em cada cadeira.
+                        Console.Clear(); // Limpa o console.
                         break;
                     default:
                         Console.Clear();
-                        Console.WriteLine("\nOpção inválida!");
+                        Console.WriteLine("\nOpção inválida!"); // se não for escolhida nenhuma opção válida, ocorrerá esta mensagem.
                         break;
                 }
-            } while (input != "8");
-            return;
-
+            } while (input != "8"); // Continua o loop até que o utilizador escolha a opção de sair.
         }
-        static void MostrarCadeiras()
+        static void MostrarCadeira() // Método para fins de demonstração de como usaro forearch e consequentemente mostrar todas as cadeiras disponíveis.
         {
 
-            foreach (Cadeira cadeira in praia)
+            foreach (Cadeira cadeira in cadeiradepraia)
             {
-                Console.WriteLine($"cadeira {cadeira.id} | preço por hora: {cadeira.preço} | estado: {(cadeira.ocupado ? "Ocupado" : "Livre")}");
+                Console.WriteLine($"cadeira {cadeira.Id} | Preço por hora: {cadeira.Preço} | estado: {(cadeira.Ocupado ? "Ocupado" : "Livre")}"); // Exibe as informações de cada cadeira.
             }
-            Console.WriteLine($"\nOs quartos vão de 1 a {praia.Length}\n");
+            Console.WriteLine($"\nOs quartos vão de 1 a {cadeiradepraia.Length}\n"); // Exibe o intervalo de cadeiras disponíveis.
         }
-
-        static void OcuparCadeira()
+        static void OcuparCadeira() // Método para ocupar uma cadeira.
         {
-            string check;
-            MostrarCadeiras();
+            int agendamento;
+            MostrarCadeira();
 
             do
             {
-                Console.Write("Indique o numero da cadeira a ocupar: ");
-                if (int.TryParse(Console.ReadLine(), out op) && op >= 1 && op <= praia.Length)
+                // Solicita ao utilizador que indique o número da cadeira a ser ocupada.
+                Console.Write("Indique o número da cadeira que será ocupada (0 para sair):  ");
+                if (!int.TryParse(Console.ReadLine(), out op))
                 {
-                    if(praia[op - 1].ocupado == true)
+                    // Valida se a entrada é um número válido.
+                    Console.WriteLine("Por favor, insira um número válido.");
+                    continue;
+                }
+
+                if (op == 0) return; // Se o utilizador escolher sair, pressionando 0, será retornado ao menu principal.
+
+                if (op >= 1 && op <= cadeiradepraia.Length)
+                {
+                    if (cadeiradepraia[op - 1].Ocupado)
                     {
-                        Console.WriteLine("\nEsta cadeira já está marcada\n");
+                        // Verifica se a cadeira já está ocupada.
+                        Console.WriteLine("\nEsta cadeira já está marcada.\n");
                         Console.WriteLine("Gostaria de ocupar outra cadeira?\n (1 - sim) (outra tecla - volta ao menu)");
-                        int.TryParse(Console.ReadLine(), out op);
-                        if (op == 1)
+                        if (int.TryParse(Console.ReadLine(), out op) && op == 1)
                         {
                             Console.Clear();
-                            OcuparCadeira();
+                            continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
                         else
                         {
-                            return;
+                            return; // Retorna ao menu principal.
                         }
                     }
 
-                    Console.Write("Quantos horas serão? ");
-                    do
+                    // Solicita ao utilizador a quantidade de horas para a reserva.
+                    Console.Write("Quantas horas serão? ");
+                    if (!int.TryParse(Console.ReadLine(), out agendamento) || agendamento <= 0)
                     {
-                        int.TryParse(Console.ReadLine(), out op); // Tenta converter o input para Int32, caso o valor de input não possa ser convertido para Int32, atribui -1 no out
-                        if (op <= 0) Console.Write("Quantidade de horas inválida, tente novamente: ");
-                        
-                        else
-                        {
-                            Console.Write("Queres mesmo reservar esta cadeira de {0} até {1}? \nEscreva '1' para sim ou '2' para não: ", DateTime.Now.ToString("HH:mm"), DateTime.Now.AddHours(op).ToString("HH:mm"));
-                            check = Console.ReadLine();
-                            praia[op - 1].ocupado = true;
-                            horas[op - 1] = DateTime.Now.Date.AddHours(op);
-                            if (op - 1 < totalmarcado.GetLength(0)) totalmarcado[op - 1, 1] += op;
-                        }
-                    } while (op <= 0);
+                        // Valida a quantidade de horas.
+                        Console.WriteLine("Quantidade de horas inválida, tente novamente.");
+                        continue; // Retorna ao início do loop para inserir uma quantidade válida de horas.
+                    }
 
-                    return;
+                    // Confirmação da reserva, exibição do tempo marcado e cálculo do Preço total.
+
+                    Console.Write("Confirmar a reserva desta cadeira das {0} até {1} pelo Preço de {2}$.\nDigite '1' para sim ou '2' para não: ", DateTime.Now.ToString("HH:mm"), DateTime.Now.AddHours(agendamento).ToString("HH:mm"), agendamento * cadeiradepraia[op - 1].Preço);
+                    input = Console.ReadLine();
+                    if (input == "1")
+                    {
+                        // Marca a cadeira como ocupada e atualiza o total de horas reservadas.
+                        cadeiradepraia[op - 1].Ocupado = true;
+                        horas[op - 1] = DateTime.Now.Date.AddHours(op);
+                        if (op - 1 < totalmarcado.GetLength(0)) totalmarcado[op - 1, 1] += agendamento;
+                    }
+                    else if (input == "2")
+                    {
+                        return; // Retorna ao menu principal.
+                    }
+                    else
+                    {
+                        Console.WriteLine("Valor inválido!"); // Mensagem de alerta de valor inválido.
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Inválido!");               
+                    Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta de cadeira inválida.
                 }
-      
-            }
-            while (op < 1 || op > praia.Length);
-        }
 
-        static void DesocuparCadeira()
+            } while (true); // Loop infinito que só é finalizado quando o utilizador sair pelo return.
+        }
+        static void DesocuparCadeira() // Método para desocupar uma cadeira.
         {
-            MostrarCadeiras();
+            MostrarCadeira();
 
             do
             {
-                Console.Write("\nIndique o numero da cadeira a desocupar: ");
-                if (int.TryParse(Console.ReadLine(), out op) && op >= 1 && op <= praia.Length)
+                Console.Write("Indique o número da cadeira que será desocupada (0 para sair): "); // Solicita ao utilizador o número da cadeira a ser desocupada.
+                if (!int.TryParse(Console.ReadLine(), out op)) // Valida se a entrada é um número válido, atráves da negação.
                 {
-                    if (praia[op - 1].ocupado == false)
+                    Console.WriteLine("Por favor, insira um número válido.");
+                    continue; // Volta ao começo do loop para selecionar outra cadeira.
+                }
+
+                if (op == 0) return; // Se o utilizador escolher sair, retorna ao menu principal.
+
+                if (op >= 1 && op <= cadeiradepraia.Length)
+                {
+                    if (!cadeiradepraia[op - 1].Ocupado) // Verifica se a cadeira não está ocupada, através da negação.
                     {
                         Console.WriteLine("Cadeira não está ocupada!");
                         Console.WriteLine("Gostaria de desocupar outra cadeira?\n (1 - sim) (outra tecla - volta ao menu)");
-                        int.TryParse(Console.ReadLine(), out op);
-                        if (op == 1)
+                        if (int.TryParse(Console.ReadLine(), out op) && op == 1)
                         {
                             Console.Clear();
-                            DesocuparCadeira();
+                            continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
                         else
                         {
-                            return;
+                            return; // Retorna ao menu principal.
                         }
-
                     }
-                    praia[op - 1].ocupado = false;
-                    return;
+
+                    // Desocupa a cadeira e exibe uma mensagem de sucesso.
+                    cadeiradepraia[op - 1].Ocupado = false;
+                    Console.WriteLine("Cadeira desocupada com sucesso!");
+                    return; // Retorna ao menu principal.
                 }
                 else
                 {
-                    Console.WriteLine("Inválido!");
+                    Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
                 }
-            }
-            while (op < 1 || op > praia.Length);
+            } while (true); // Loop até que o utilizador saia.
         }
-        static void NovaCadeira()
+        static void EditarCadeira() // Método para editar uma cadeira.
         {
-            int novoid = praia.Length + 1;
-            int novopreço;
-
-            Console.Write("Insira o preço da cadeira: ");
-
-            if (int.TryParse(Console.ReadLine(), out novopreço))
+            double novoPreco;
+            MostrarCadeira(); //Chama o método de mostrar cadeiras.
+            do
             {
-                Array.Resize(ref praia, praia.Length + 1);
-                Array.Resize(ref horas, horas.Length + 1);
 
-                for (int i = praia.Length - 1; i > 0; i--)
+                Console.Write("Selecione a cadeira que deseja editar (0 para sair): "); // Solicita ao utilizador que selecione a cadeira a ser editada.
+                if (!int.TryParse(Console.ReadLine(), out op)) // Válida o número inserido.
                 {
-                    praia[i].id = i + 1;
+                    Console.WriteLine("Por favor, insira um número válido."); // caso nao for válido, exibe esta mensagem solicitando um número válido.
+                    continue; // Volta ao começo do loop para selecionar outra cadeira.
                 }
 
-                praia[0].id = 1; 
-                praia[praia.Length - 1] = new Cadeira { id = novoid, preço = novopreço, ocupado = false };
-            }
-            else
-            {
-                Console.WriteLine("O valor que introduziu não é um número inteiro válido.");
-            }
-        }
+                if (op == 0) break; // Sai do loop se o usuário inserir 0 para sair
 
-        static void DeletarCadeira()
-        {
-            MostrarCadeiras();
-            Console.Write("Selecione a cadeira que será removida: ");
-            int.TryParse(Console.ReadLine(), out op);
-            if (praia[op - 1].ocupado == true)
-            {
-                Console.WriteLine("a cadeira não pode ser apagada porque está ocupada.");
-                Console.WriteLine("Gostaria de deletar outra cadeira?\n (1 - sim) (outra tecla - volta ao menu)");
-                int.TryParse(Console.ReadLine(), out op);
-                if (op == 1)
+                if (op >= 1 && op <= cadeiradepraia.Length)
                 {
-                    Console.Clear();
-                    DeletarCadeira();
+                    Console.Write("Insira o novo Preço da cadeira: ");
+                    if (double.TryParse(Console.ReadLine(), out novoPreco) && novoPreco > 0)
+                    {
+                        cadeiradepraia[op - 1].Preço = novoPreco;
+                        Console.WriteLine("Preço atualizado com sucesso."); // Mensagem de alerta sobre o Preço ter sido atualizado com sucesso.
+                    }
+                    else
+                    {
+                        Console.WriteLine("Preço inválido!"); // Mensagem de alerta sobre Preço inválido.
+                    }
                 }
                 else
                 {
-                    return;
-                }     
-            }
-
-
-            for (int i = op; i < praia.Length - 1; i++)
-            {
-                praia[i] = praia[i + 1];
-            }
-
-            Array.Resize(ref praia, praia.Length - 1);
-
-            for (int i = 0; i < praia.Length; i++)
-            {
-                praia[i].id = i + 1;
-            }
+                    Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta sobre cadeira inválida.
+                }
+            } while (true); // Loop infinito até que o utilizador saia.
         }
-        static void MostrarHorasMarcadas()
+        static void NovaCadeira() // Método para adicionar uma cadeira.
+        {
+            int novoid = cadeiradepraia.Length + 1;
+            double novoPreço;
+
+            do
+            {
+                // Solicita ao utilizador o Preço da nova cadeira.
+                Console.Write("Insira o Preço da cadeira (0 para sair): ");
+
+                if (!double.TryParse(Console.ReadLine(), out novoPreço))
+                {
+                    // Valida se a entrada é um número válido, atráves da negação.
+                    Console.WriteLine("Entrada inválida. Por favor, insira um número válido.");
+                    continue; // Retorna ao início do loop para solicitar nova entrada.
+                }
+
+                else if (novoPreço == 0) return; // Se o utilizador escolher sair, é retornado ao menu principal.
+
+                else
+                {
+                    novoid = cadeiradepraia[cadeiradepraia.Length - 1].Id + 1; // Define o ID da nova cadeira como o ID da última cadeira + 1.
+
+                    // Aumenta o tamanho do array de cadeiras para adicionar a nova cadeira.
+                    Array.Resize(ref cadeiradepraia, cadeiradepraia.Length + 1);
+                    Array.Resize(ref horas, horas.Length + 1);
+
+                    // Cria uma nova matriz para armazenar o total de horas marcadas e copia os valores da matriz original.
+                    int[,] novototalmarcado = new int[totalmarcado.GetLength(0) + 1, 2]; // Cria uma nova matriz para armazenar o total de horas marcadas com uma linha extra para a nova cadeira que será adicionada.
+                    Array.Copy(totalmarcado, novototalmarcado, totalmarcado.Length); // copia o conteúdo de uma matriz para a outra.
+
+                    novototalmarcado[totalmarcado.GetLength(0), 0] = totalmarcado.GetLength(0) + 1; // Atribui o número da nova cadeira(a anterior +1).
+                    totalmarcado = novototalmarcado; // Atribui a nova matriz à matriz original.
+
+                    // Atualiza os IDs das cadeiras.
+                    for (int i = cadeiradepraia.Length - 1; i > 0; i--)
+                    {
+                        cadeiradepraia[i].Id = i + 1;
+                    }
+
+                    cadeiradepraia[0].Id = 1;
+                    // Adiciona a nova cadeira ao final do array.
+                    cadeiradepraia[cadeiradepraia.Length - 1] = new Cadeira { Id = novoid, Preço = novoPreço, Ocupado = false };
+                    Console.WriteLine("Adicionada com sucesso!"); // Mensagem de confirmação.
+                }
+            } while (true); // Continua indefinidamente até que o utilizador escolha sair.
+        }
+        static void DeletarCadeira() // Método para deletar uma cadeira.
+        {
+            MostrarCadeira();
+
+            do
+            {
+                // Solicita ao utilizador que selecione a cadeira a ser removida.
+                Console.Write("Selecione a cadeira que será removida (0 para sair): ");
+                if (!int.TryParse(Console.ReadLine(), out op)) // testa se o input é é um número válido.
+                {
+                    Console.WriteLine("Por favor, insira um número válido.");
+                    continue; // Volta ao começo do loop para selecionar outra cadeira.
+                }
+
+                if (op == 0) return; // Se o utilizador escolher sair, retorna ao menu principal.
+
+                if (op >= 1 && op <= cadeiradepraia.Length)
+                {
+                    if (cadeiradepraia[op - 1].Ocupado)
+                    {
+                        // Verifica se a cadeira está ocupada e impede a remoção.
+                        Console.WriteLine("A cadeira não pode ser apagada porque está ocupada.");
+                        Console.WriteLine("Gostaria de deletar outra cadeira?\n (1 - sim) (outra tecla - volta ao menu)");
+                        if (int.TryParse(Console.ReadLine(), out op) && op == 1)
+                        {
+                            Console.Clear();
+                            continue; // Volta ao começo do loop para selecionar outra cadeira.
+                        }
+                        else
+                        {
+                            return; // Retorna ao menu principal.
+                        }
+                    }
+
+                    // Remove a cadeira do array e ajusta os IDs das cadeiras restantes.
+                    for (int i = op - 1; i < cadeiradepraia.Length - 1; i++)
+                    {
+                        cadeiradepraia[i] = cadeiradepraia[i + 1];
+                    }
+
+                    Array.Resize(ref cadeiradepraia, cadeiradepraia.Length - 1);
+
+                    for (int i = 0; i < cadeiradepraia.Length; i++)
+                    {
+                        cadeiradepraia[i].Id = i + 1;
+                    }
+                    return; // Retorna ao menu principal.
+                }
+                else
+                {
+                    Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
+                }
+            } while (true); // Loop infinito até que o utilizador saia.
+        }
+        static void MostrarHorasMarcadas() // Método para demonstrar as horas totais marcadas em cada cadeira.
         {
             for (int i = 0; i < totalmarcado.GetLength(0); i++)
             {
                 for (int j = 0; j < totalmarcado.GetLength(1); j++)
                 {
-                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcados{((i >= praia.Length) ? " (DELETADO)" : "")} \n");
+                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n");
                 }
             }
+            Console.Write("\nPressione qualquer tecla para voltar ao menu: "); // Solicita ao utilizador para pressionar qualquer tecla para voltar ao menu principal.
             Console.ReadKey();
-        }
+        }    
     }
 }
