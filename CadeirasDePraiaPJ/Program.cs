@@ -115,6 +115,9 @@ namespace CadeirasDePraiaPJ
         static void OcuparCadeira() // Método para ocupar uma cadeira.
         {
             int agendamento; // Declaração da variável para armazenar o número de horas que serão agendadas.
+            DateTime fimReserva;
+            DateTime limite = DateTime.Now.Date.AddHours(20); // Declaração da var que será usada para delimitar até as 20 horas o horário de marcação.
+            TimeSpan horasDisponiveis = limite - DateTime.Now; // Declaração da var que calcula e armazena a diferença entre a hora e minutos atual e a hora delimitada.
             MostrarCadeira(); // Chama o método MostrarCadeira para exibir o estado atual das cadeiras.
 
             do
@@ -147,19 +150,19 @@ namespace CadeirasDePraiaPJ
                     }
         
                     Console.Write("Quantas horas serão? "); // Solicita ao utilizador a quantidade de horas para a reserva.
-                    if (!int.TryParse(Console.ReadLine(), out agendamento) || agendamento <= 0) // Valida a quantidade de horas.
+                    if (!int.TryParse(Console.ReadLine(), out agendamento)) // Valida a quantidade de horas.
                     {
                         // Valida a quantidade de horas.
                         Console.WriteLine("Quantidade de horas inválida, tente novamente.");
                         continue; // Retorna ao início do loop para inserir uma quantidade válida de horas.
                     }
 
-                    DateTime fimReserva = DateTime.Now.AddHours(agendamento); // Calcula o tempo final da reserva.
-                    DateTime limite = DateTime.Now.Date.AddHours(20); // Define o limite como 20:00 do dia atual
+                    fimReserva = DateTime.Now.AddHours(agendamento); //Tem como objetivo estabelecer quando a reserva irá terminar, obtendo a data e hora e adicionando a var agendamento.
+
 
                     if (fimReserva > limite)
-                    {
-                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas.");
+                    {   
+                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. é possivel marcar {0}h e {1}m", horasDisponiveis.Hours,horasDisponiveis.Minutes);
                         continue; // Retorna ao início do loop para solicitar uma nova quantidade de horas.
                     }
 
