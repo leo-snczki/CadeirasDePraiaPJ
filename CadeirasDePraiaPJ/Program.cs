@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -128,9 +128,9 @@ namespace CadeirasDePraiaPJ
                     continue;
                 }
 
-                if (op == 0) return; // Se o utilizador escolher sair, pressionando 0, será retornado ao menu principal.
+                else if (op == 0) return; // Se o utilizador escolher sair, pressionando 0, será retornado ao menu principal.
 
-                if (op >= 1 && op <= cadeiradepraia.Length)
+                else if (op >= 1 && op <= cadeiradepraia.Length)
                 {
                     if (cadeiradepraia[op - 1].Ocupado)
                     {
@@ -155,6 +155,15 @@ namespace CadeirasDePraiaPJ
                         // Valida a quantidade de horas.
                         Console.WriteLine("Quantidade de horas inválida, tente novamente.");
                         continue; // Retorna ao início do loop para inserir uma quantidade válida de horas.
+                    }
+
+                    DateTime fimReserva = DateTime.Now.AddHours(agendamento);
+                    DateTime limite = DateTime.Now.Date.AddHours(20); // Define o limite como 20:00 do dia atual
+
+                    if (fimReserva > limite)
+                    {
+                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas.");
+                        continue; // Retorna ao início do loop para solicitar uma nova quantidade de horas.
                     }
 
                     // Confirmação da reserva, exibição do tempo marcado e cálculo do Preço total.
