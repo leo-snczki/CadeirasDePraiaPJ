@@ -27,7 +27,7 @@ namespace CadeirasDePraiaPJ
             // Inicialização de algumas cadeiras com valores padrões.
 
             // Inicializa as 5 cadeiras com valores padrões, que são 5.
-            for (int i = 0; i < cadeiradepraia.Length; i++)
+            for (int i = 0; i < 5; i++)
             {
                 cadeiradepraia[i] = new Cadeira { Id = i + 1, Preço = 100, Ocupado = false };
             }
