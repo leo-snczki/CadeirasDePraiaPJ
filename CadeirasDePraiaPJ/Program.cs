@@ -121,14 +121,14 @@ namespace CadeirasDePraiaPJ
             MostrarCadeira(); // Chama o método MostrarCadeira para exibir o estado atual das cadeiras.
 
             do
-            {     
+            {
                 Console.Write("Indique o número da cadeira que será ocupada (0 para sair):  "); // Solicita ao utilizador que indique o número da cadeira a ser ocupada.
                 if (!int.TryParse(Console.ReadLine(), out op)) // Tenta a entrada do usuário e converter para inteiro validando através da negação, armazenando o resultado em 'op'.
                 {
                     // Valida se a entrada é um número válido.
                     Console.WriteLine("Por favor, insira um número válido.");
                     continue; // Volta ao começo do loop para selecionar outra cadeira.
-                } 
+                }
 
                 else if (op == 0) return; // Se o utilizador escolher sair, pressionando 0, será retornado ao main.
 
@@ -145,7 +145,7 @@ namespace CadeirasDePraiaPJ
                         }
                         else return; // Retorna ao main.
                     }
-        
+
                     Console.Write("Quantas horas serão? "); // Solicita ao utilizador a quantidade de horas para a reserva.
                     if (!int.TryParse(Console.ReadLine(), out agendamento)) // Valida a quantidade de horas.
                     {
@@ -158,14 +158,14 @@ namespace CadeirasDePraiaPJ
 
 
                     if (fimReserva > limite)
-                    {   
-                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. O tempo restante é de {0}h e {1}m", horasDisponiveis.Hours,horasDisponiveis.Minutes);
+                    {
+                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. o  tempo restante é de {0}h e {1}m", horasDisponiveis.Hours, horasDisponiveis.Minutes);
                         continue; // Retorna ao início do loop para solicitar uma nova quantidade de horas.
                     }
 
                     // Confirmação da reserva, exibição do tempo marcado e cálculo do Preço total.
 
-                    Console.Write("Confirmar a reserva desta cadeira das {0} até {1} pelo Preço de {2}$.\nDigite '1' para sim ou '2' para não: ", DateTime.Now.ToString("HH:mm"), DateTime.Now.AddHours(agendamento).ToString("HH:mm"), agendamento * cadeiradepraia[op - 1].Preço); 
+                    Console.Write("Confirmar a reserva desta cadeira das {0} até {1} pelo Preço de {2}$.\nDigite '1' para sim ou '2' para não: ", DateTime.Now.ToString("HH:mm"), DateTime.Now.AddHours(agendamento).ToString("HH:mm"), agendamento * cadeiradepraia[op - 1].Preço);
                     input = Console.ReadLine(); // Lê a confirmação do utilizador.
                     if (input == "1")
                     {
@@ -209,7 +209,7 @@ namespace CadeirasDePraiaPJ
                             continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
                         else return; // Retorna ao main.
-                        
+
                     }
 
                     // Desocupa a cadeira e exibe uma mensagem de sucesso.
@@ -353,11 +353,11 @@ namespace CadeirasDePraiaPJ
             {
                 for (int j = 0; j < totalmarcado.GetLength(1); j++) // loop para a segunda dimensão da matriz.
                 {
-                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n");
+                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n"); // Demonstação dos resultados.
                 }
             }
             Console.Write("\nPressione qualquer tecla para voltar ao menu: "); // Solicita ao utilizador para pressionar qualquer tecla para voltar ao main.
             Console.ReadKey();
-        }    
+        }
     }
 }
