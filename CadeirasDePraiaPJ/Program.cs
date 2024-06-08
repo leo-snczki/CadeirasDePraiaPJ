@@ -16,7 +16,7 @@ namespace CadeirasDePraiaPJ
             public bool Ocupado; // Indica se a cadeira está ocupada ou não.
         }
 
-        static string input; // Variável para armazenar algum  texto selecionado pelo utilizador,
+        static string input; // Variável para armazenar algum texto selecionado pelo utilizador,
         static int op; // Variável para armazenar algum número inteiro selecionado pelo utilizador.
         static Cadeira[] cadeiradepraia = new Cadeira[5]; // Array de cadeiras com capacidade para 5 cadeiras.
         static DateTime[] horas = new DateTime[5]; // Array para armazenar as horas reservadas para cada cadeira.
@@ -26,11 +26,11 @@ namespace CadeirasDePraiaPJ
         {
             // Inicialização de algumas cadeiras com valores padrões.
 
-            cadeiradepraia[0] = new Cadeira { Id = 1, Preço = 100, Ocupado = false };
-            cadeiradepraia[1] = new Cadeira { Id = 2, Preço = 100, Ocupado = false };
-            cadeiradepraia[2] = new Cadeira { Id = 3, Preço = 100, Ocupado = false };
-            cadeiradepraia[3] = new Cadeira { Id = 4, Preço = 100, Ocupado = false };
-            cadeiradepraia[4] = new Cadeira { Id = 5, Preço = 100, Ocupado = false };
+            // Inicializa as 5 cadeiras com valores padrões, que são 5.
+            for (int i = 0; i < cadeiradepraia.Length; i++)
+            {
+                cadeiradepraia[i] = new Cadeira { Id = i + 1, Preço = 100, Ocupado = false };
+            }
 
             EscolherOpção(); // Chama o método para começar a interação com o utilizador.
 
@@ -114,10 +114,10 @@ namespace CadeirasDePraiaPJ
         }
         static void OcuparCadeira() // Método para ocupar uma cadeira.
         {
-            int agendamento; // Declaração da variável para armazenar o número de horas que serão agendadas.
-            DateTime fimReserva;
+            int agendamento; // Declaração da var para armazenar o número de horas que serão agendadas.
+            DateTime fimReserva; // Declaracção da var que será usada para armazenar o tempo que a reserva ira acabar.
             DateTime limite = DateTime.Now.Date.AddHours(20); // Declaração da var que será usada para delimitar até as 20 horas o horário de marcação.
-            TimeSpan horasDisponiveis = limite - DateTime.Now; // Declaração da var que calcula e armazena a diferença entre a hora e minutos atual e a hora delimitada.
+            TimeSpan horasDisponiveis = limite - DateTime.Now; // Declaração da var do tipo TimeSpan que calcula e armazena a diferença entre a hora e minutos atual e a hora delimitada.
             MostrarCadeira(); // Chama o método MostrarCadeira para exibir o estado atual das cadeiras.
 
             do
@@ -157,9 +157,9 @@ namespace CadeirasDePraiaPJ
                     fimReserva = DateTime.Now.AddHours(agendamento); //Tem como objetivo estabelecer quando a reserva irá terminar, obtendo a data e hora e adicionando a var agendamento.
 
 
-                    if (fimReserva > limite)
+                    if (fimReserva > limite) // Checa se a horá que será reservada está dentro dos limites.
                     {
-                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. o  tempo restante é de {0}h e {1}m", horasDisponiveis.Hours, horasDisponiveis.Minutes);
+                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. o  tempo restante é de {0}h e {1}m", horasDisponiveis.Hours, horasDisponiveis.Minutes); // Mensagem que é mostrada caso não esteja dentro do horário.
                         continue; // Retorna ao início do loop para solicitar uma nova quantidade de horas.
                     }
 
@@ -292,9 +292,8 @@ namespace CadeirasDePraiaPJ
                         cadeiradepraia[i].Id = i + 1;
                     }
 
-                    cadeiradepraia[0].Id = 1;
-                    // Adiciona a nova cadeira ao final do array.
-                    cadeiradepraia[cadeiradepraia.Length - 1] = new Cadeira { Id = novoid, Preço = novoPreço, Ocupado = false };
+                    cadeiradepraia[0].Id = 1; // Define o que o primeiro índice sempre terá o id 1.                   
+                    cadeiradepraia[cadeiradepraia.Length - 1] = new Cadeira { Id = novoid, Preço = novoPreço, Ocupado = false }; // Adiciona a nova cadeira ao final do array.
                     Console.WriteLine("Adicionada com sucesso!"); // Mensagem de confirmação.
                 }
             } while (true); // Continua indefinidamente até que o utilizador escolha sair.
