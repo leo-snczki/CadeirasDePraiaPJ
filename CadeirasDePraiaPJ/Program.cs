@@ -177,10 +177,8 @@ namespace CadeirasDePraiaPJ
                         horas[op - 1] = DateTime.Now.Date.AddHours(op);
                         if (op - 1 < totalmarcado.GetLength(0)) totalmarcado[op - 1, 1] += agendamento;
                     }
-                    else if (input == "2") // Se for 2, o utilizador volta ao main.
-                    {
-                        return; // Retorna ao main.
-                    } 
+                    else if (input == "2") return; // Se for 2, o utilizador volta ao main
+                     
                     else
                     {
                         Console.WriteLine("Valor inválido!"); // Mensagem de alerta de valor inválido.
