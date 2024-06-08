@@ -105,7 +105,6 @@ namespace CadeirasDePraiaPJ
         }// Método que serve para escolher as opções dísponíveis no programa.
         static void MostrarCadeira() // Método para fins de demonstração de como usaro forearch e consequentemente mostrar todas as cadeiras disponíveis.
         {
-
             foreach (Cadeira cadeira in cadeiradepraia)
             {
                 Console.WriteLine($"cadeira {cadeira.Id} | Preço por hora: {cadeira.Preço} | estado: {(cadeira.Ocupado ? "Ocupado" : "Livre")}"); // Exibe as informações de cada cadeira.
