@@ -291,8 +291,6 @@ namespace CadeirasDePraiaPJ
                     {
                         cadeiradepraia[i].Id = i + 1;
                     }
-
-                    cadeiradepraia[0].Id = 1; // Define o que o primeiro índice sempre terá o id 1.                   
                     cadeiradepraia[cadeiradepraia.Length - 1] = new Cadeira { Id = novoid, Preço = novoPreço, Ocupado = false }; // Adiciona a nova cadeira ao final do array.
                     Console.WriteLine("Adicionada com sucesso!"); // Mensagem de confirmação.
                 }
