@@ -159,7 +159,7 @@ namespace CadeirasDePraiaPJ
 
                     if (fimReserva > limite)
                     {   
-                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. é possivel marcar {0}h e {1}m", horasDisponiveis.Hours,horasDisponiveis.Minutes);
+                        Console.WriteLine("A reserva não pode ultrapassar o limite das 20:00. Por favor, escolha um número menor de horas. o  tempo restante é de {0}h e {1}m", horasDisponiveis.Hours,horasDisponiveis.Minutes);
                         continue; // Retorna ao início do loop para solicitar uma nova quantidade de horas.
                     }
 
