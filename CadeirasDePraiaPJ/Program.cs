@@ -143,10 +143,7 @@ namespace CadeirasDePraiaPJ
                             Console.Clear(); // Limpa a tela do console.
                             continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
-                        else
-                        {
-                            return; // Retorna ao main.
-                        }
+                        else return; // Retorna ao main.
                     }
         
                     Console.Write("Quantas horas serão? "); // Solicita ao utilizador a quantidade de horas para a reserva.
@@ -177,17 +174,11 @@ namespace CadeirasDePraiaPJ
                         horas[op - 1] = DateTime.Now.Date.AddHours(op);
                         if (op - 1 < totalmarcado.GetLength(0)) totalmarcado[op - 1, 1] += agendamento;
                     }
-                    else if (input == "2") return; // Se for 2, o utilizador volta ao main
-                     
-                    else
-                    {
-                        Console.WriteLine("Valor inválido!"); // Mensagem de alerta de valor inválido.
-                    }
+                    else if (input == "2") return; // Se for 2, o utilizador volta ao main.
+
+                    else Console.WriteLine("Valor inválido!"); // Mensagem de alerta de valor inválido.                    
                 }
-                else
-                {
-                    Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta de cadeira inválida.
-                }
+                else Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta de cadeira inválida.
 
             } while (true); // Loop infinito que só é finalizado quando o utilizador sair pelo return.
         }
@@ -217,10 +208,8 @@ namespace CadeirasDePraiaPJ
                             Console.Clear();
                             continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
-                        else
-                        {
-                            return; // Retorna ao main.
-                        }
+                        else return; // Retorna ao main.
+                        
                     }
 
                     // Desocupa a cadeira e exibe uma mensagem de sucesso.
@@ -228,10 +217,8 @@ namespace CadeirasDePraiaPJ
                     Console.WriteLine("Cadeira desocupada com sucesso!");
                     return; // Retorna ao main.
                 }
-                else
-                {
-                    Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
-                }
+                else Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
+
             } while (true); // Loop até que o utilizador saia.
         }
         static void EditarCadeira() // Método para editar uma cadeira.
@@ -258,15 +245,11 @@ namespace CadeirasDePraiaPJ
                         cadeiradepraia[op - 1].Preço = novoPreco;
                         Console.WriteLine("Preço atualizado com sucesso."); // Mensagem de alerta sobre o Preço ter sido atualizado com sucesso.
                     }
-                    else
-                    {
-                        Console.WriteLine("Preço inválido!"); // Mensagem de alerta sobre Preço inválido.
-                    }
+                    else Console.WriteLine("Preço inválido!"); // Mensagem de alerta sobre Preço inválido.
+
                 }
-                else
-                {
-                    Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta sobre cadeira inválida.
-                }
+                else Console.WriteLine("Cadeira inválida!"); // Mensagem de alerta sobre cadeira inválida.
+
             } while (true); // Loop infinito até que o utilizador saia.
         }
         static void NovaCadeira() // Método para adicionar uma cadeira.
@@ -343,10 +326,8 @@ namespace CadeirasDePraiaPJ
                             Console.Clear();
                             continue; // Volta ao começo do loop para selecionar outra cadeira.
                         }
-                        else
-                        {
-                            return; // Retorna ao main.
-                        }
+                        else return; // Retorna ao main.
+
                     }
 
                     for (int i = op - 1; i < cadeiradepraia.Length - 1; i++) // Ajusta os indices do vetor.
@@ -362,17 +343,15 @@ namespace CadeirasDePraiaPJ
                     }
                     return; // Retorna ao main.
                 }
-                else
-                {
-                    Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
-                }
+                else Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
+
             } while (true); // Loop infinito até que o utilizador saia.
         }
         static void MostrarHorasMarcadas() // Método para demonstrar as horas totais marcadas em cada cadeira.
         {
-            for (int i = 0; i < totalmarcado.GetLength(0); i++)
+            for (int i = 0; i < totalmarcado.GetLength(0); i++) // loop para a primeira dimensão da matriz.
             {
-                for (int j = 0; j < totalmarcado.GetLength(1); j++)
+                for (int j = 0; j < totalmarcado.GetLength(1); j++) // loop para a segunda dimensão da matriz.
                 {
                     Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n");
                 }
