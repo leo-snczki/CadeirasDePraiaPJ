@@ -69,7 +69,7 @@ namespace CadeirasDePraiaPJ
                     case "2":
                         Console.Clear(); // Limpa o console.
                         OcuparCadeira(); // Chama o método para ocupar uma cadeira.
-                        Console.Clear();
+                        Console.Clear(); // Limpa o console.
                         break;
                     case "3":
                         Console.Clear(); // Limpa o console.
@@ -353,7 +353,7 @@ namespace CadeirasDePraiaPJ
             {
                 for (int j = 0; j < totalmarcado.GetLength(1); j++) // loop para a segunda dimensão da matriz.
                 {
-                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n"); // Demonstação dos resultados.
+                    Console.Write((j == 0) ? $"a cadeira {totalmarcado[i, j]} tem um total de " : $"{totalmarcado[i, j]} horas marcadas \n"); // Demonstração dos resultados.
                 }
             }
             Console.Write("\nPressione qualquer tecla para voltar ao menu: "); // Solicita ao utilizador para pressionar qualquer tecla para voltar ao main.
