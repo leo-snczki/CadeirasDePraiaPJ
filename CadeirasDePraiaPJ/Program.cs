@@ -24,9 +24,8 @@ namespace CadeirasDePraiaPJ
 
         static void Main(string[] args)
         {
-            // Inicialização de algumas cadeiras com valores padrões.
 
-            // Inicializa as 5 cadeiras com valores padrões, que são 5.
+            //  Inicializa as 5 cadeiras com valores atribuidos.
             for (int i = 0; i < 5; i++)
             {
                 cadeiradepraia[i] = new Cadeira { Id = i + 1, Preço = 100, Ocupado = false };
@@ -44,7 +43,7 @@ namespace CadeirasDePraiaPJ
             Console.WriteLine("4. Editar cadeira");
             Console.WriteLine("5. Adicionar cadeira");
             Console.WriteLine("6. Remover cadeira");
-            Console.WriteLine("7. Total de horas marcado por cadeira");
+            Console.WriteLine("7. Total de horas marcadas por cadeira");
             Console.WriteLine("8. Sair");
             Console.WriteLine("================\n");
 
@@ -146,7 +145,7 @@ namespace CadeirasDePraiaPJ
                     }
 
                     Console.Write("Quantas horas serão? "); // Solicita ao utilizador a quantidade de horas para a reserva.
-                    if (!int.TryParse(Console.ReadLine(), out agendamento)) // Valida a quantidade de horas.
+                    if (!int.TryParse(Console.ReadLine(), out agendamento) || agendamento == 0) // Valida a quantidade de horas.
                     {
                         // Valida a quantidade de horas.
                         Console.WriteLine("Quantidade de horas inválida, tente novamente.");
@@ -213,7 +212,8 @@ namespace CadeirasDePraiaPJ
 
                     // Desocupa a cadeira e exibe uma mensagem de sucesso.
                     cadeiradepraia[op - 1].Ocupado = false;
-                    Console.WriteLine("Cadeira desocupada com sucesso!");
+                    Console.Write("Cadeira desocupada com sucesso!\nPrecione qualquer tecla para voltar ao menu: ");
+                    Console.ReadKey();
                     return; // Retorna ao main.
                 }
                 else Console.WriteLine("Cadeira inválida!"); // Mensagem de cadeira inválida.
