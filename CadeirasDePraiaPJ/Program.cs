@@ -254,7 +254,7 @@ namespace CadeirasDePraiaPJ
         static void NovaCadeira() // Método para adicionar uma cadeira.
         {
             int novoid = cadeiradepraia.Length + 1;
-            double novoPreço;
+            double novoPreço; // var do tipo double que será utilizada para amazenar o novo preço.
 
             do
             {
